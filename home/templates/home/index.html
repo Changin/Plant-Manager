@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>home</title>
+<div class="container my-3">
+    <h2 class="border-bottom py-2">Plant manager v0.1</h2>
+    {% if user.is_authenticated %}
+    <h4 class="border-bottom py-2">내 식물 관리</h4>
+</div>
+<div class = "container my-3">
+    <table class="table">
+        <thead>
+        <tr class="table-dark">
+            <th>번호</th>
+            <th>별명</th>
+            <th>종</th>
+            <th>최근 물준 날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if plants %}
+        {% for plant in plants %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'home:detail' %}?serial_num={{plant.serial_num}}">{{ plant.nickname }}</a>
+            </td>
+            <td>{{ plant.name }}</td>
+            <td>{{ plant.date_watered }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="4" align="right">
+                <a href="{% url 'home:newplant' %}" class="btn btn-primary">(+) 새 식물(제품) 등록</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">등록한 식물이 없어요!</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a href="{% url 'home:newplant' %}" class="btn btn-primary">식물 등록하러 가기</a>
+            </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="container my-3">
+    <h2>로그인이 필요한 서비스입니다.</h2>
+    <a href="{% url 'users:login' %}" class="btn btn-primary">로그인</a>
+    <span>||</span>
+    <a href="{% url 'users:signup' %}" class="btn btn-primary">회원가입</a>
+</div>
+{% endif %}
+{% endblock %}

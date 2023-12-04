@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>타임랩스</title>
+<div class="container my-3">
+    <h2 class="border-bottom py-2">타입랩스 : {{ plant.nickname }}</h2>
+    <h5 class="border-bottom py-2">타임랩스 주기 설정</h5>
+    <form method="post" action="{% url 'home:setperiod' %}?serial_num={{ plant.serial_num }}">
+        {% csrf_token %}
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <div class="mb-3">
+            <label for="period">주기(시간)</label>
+            <input type="number" class="form-control" name="period" id="period"
+                   value="{{ plant.timelapse_period }}">
+        </div>
+        <button type="submit" class="btn btn-primary">변경</button>
+    </form>
+    <hr>
+    <h5 class="border-bottom py-2">타임랩스 생성</h5>
+        <div class="mb-3">
+            <a href="#">다운로드</a>
+        </div>
+    <h5 class="border-bottom py-2"><a href="#">사진 보기</a></h5>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>detail</title>
+<div class="container my-3">
+    <h2 class="border-bottom py-2">식물정보 : {{ plant.nickname }}</h2>
+    <div class="border-bottom py-2">
+        <table class="table">
+            <thead>
+            <tr class="table-dark">
+                <th colspan="2">{{ plant.nickname }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="table-dark" width="20%">종</td>
+                <td>{{ plant.name }}</td>
+            </tr>
+            <tr>
+                <td class="table-dark">최근 물준 날짜</td>
+                <td>{{ plant.date_watered }}</td>
+            </tr>
+            <tr>
+                <td class="table-dark">S/N</td>
+                <td>{{ plant.serial_num }}</td>
+            </tr>
+            <tr>
+                <td class="table-dark">타임랩스 촬영 주기</td>
+                <td>
+                    {{ plant.timelapse_period }} 시간
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container my-3">
+    <div class="border-bottom py-2">
+        <h5>
+            <a href="{% url 'home:timelapse' %}?serial_num={{plant.serial_num}}">타임랩스 관리</a>
+        </h5>
+    </div>
+</div>
+<div class="container my-3">
+    <h5 class="border-bottom my-3 py-2">최근 데이터 요약  <a href="{% url 'home:data' %}?serial_num={{plant.serial_num}}">전체보기</a></h5>
+    {% if current_data is not None %}
+    <div class="container my-3">
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;">기온 : {{ current_data.temp }} °C</div>
+                <div class="card-text" style="white-space: pre-line;">대기 습도 : {{ current_data.humi }} %</div>
+                <div class="card-text" style="white-space: pre-line;">토양 수분 : {{ current_data.watery }} %</div>
+                <div class="card-text" style="white-space: pre-line;">조도 : {{ current_data.light }} %</div>
+                <div class="card-text" style="white-space: pre-line;">산성도 : ph {{ current_data.ph }}</div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2">
+                        ({{ current_data.date_measured }} 기준)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">최근 측정값이 없습니다!</div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

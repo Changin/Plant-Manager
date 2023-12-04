@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>식물 추가</title>
+    <div class="container my-3">
+    <form method="post" action="{% url 'home:newplantsubmit' %}">
+        {% csrf_token %}
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <h2 class="border-bottom py-2">새 식물 등록</h2>
+        <div class="mb-3">
+            <label for="serial_num">*제품 시리얼 넘버</label>
+            <input type="text" class="form-control" name="serial_num" id="serial_num"
+                   value="{{ form.serial_num.value|default_if_none:'' }}" maxlength="100" required>
+        </div>
+        <div class="mb-3">
+            <label for="name">*식물 종</label>
+            <input type="text" class="form-control" name="name" id="name"
+                   value="{{ form.name.value|default_if_none:'' }}" maxlength="50" required>
+        </div>
+        <div class="mb-3">
+            <label for="nickname">*식물 별명</label>
+            <input type="text" class="form-control" name="nickname" id="nickname"
+                   value="{{ form.nickname.value|default_if_none:'' }}" maxlength="20" required>
+        </div>
+        <div class="mb-3">
+            <label for="date_watered">최근 물준 날짜</label>
+            <input type="date" class="form-control" name="date_watered" id="date_watered">
+        </div>
+        <p> * : 필수 입력 항목 </p>
+        <button type="submit" class="btn btn-primary">등록</button>
+    </form>
+</div>
+<script>
+  document.getElementById('date_watered').value= new Date().toISOString().slice(0, 10);
+</script>
+{% endblock %}

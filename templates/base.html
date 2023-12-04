@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html lang="ko"> <!-- en로 되어있는데 ko로 바꿔줬지만 굳이 바꾸지 않아도 된다. -->
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <title>Plant manager</title>
+</head>
+
+<body>
+    {% include 'shared/_navbar.html' %}
+
+    <!-- 기본 템플릿 안에 삽입될 내용 START -->
+    {% block content %}
+    {% endblock %}
+    <!-- 기본 템플릿 안에 삽입될 내용 END -->
+    <!-- Bootstrap JS -->
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+</body>
+
+</html>
