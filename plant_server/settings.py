@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-rc)cuv*^bct3__z*9f#!9wncs)0@32jgjb^0+9v8)kmsj2@#8%
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["43.200.105.74"]   # AWS server ip
 # runserver --insecure 하면 디버그 false여도 스태틱 파일 가능
 
 # Application definition
