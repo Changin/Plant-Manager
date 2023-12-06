@@ -34,10 +34,27 @@
     </div>
 </div>
 <div class="container my-3">
+    <!---
     <div class="border-bottom py-2">
         <h5>
             <a href="{% url 'home:timelapse' %}?serial_num={{plant.serial_num}}">타임랩스 관리</a>
         </h5>
+    </div>--->
+    <h5 class="border-bottom my-3 py-2">타임랩스 설정</h5>
+    <form method="post" action="{% url 'home:setperiod' %}?serial_num={{ plant.serial_num }}">
+        {% csrf_token %}
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <div class="mb-3">
+            <label for="period">주기(시간)</label>
+            <input type="number" class="form-control" name="period" id="period"
+                   value="{{ plant.timelapse_period }}">
+        </div>
+        <button type="submit" class="btn btn-primary">변경</button>
+    </form>
+    <h5 class="border-bottom my-3 py-2">타임랩스 생성 <a href="{% url 'home:timelapse' %}?serial_num={{plant.serial_num}}">사진 보기</a></h5>
+    <div class="mb-3">
+        <a href="{% url 'home:download' %}?serial_num={{plant.serial_num}}" class="btn btn-primary">다운로드</a>
+        <p>보유 사진 수 : {{ plant.image_count }} (*15장 이상부터 다운로드 가능)</p>
     </div>
 </div>
 <div class="container my-3">

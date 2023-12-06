@@ -9,5 +9,6 @@ urlpatterns = [
     path("detail/", views.detail, name='detail'),
     path('detail/timelapse/', views.timelapse, name='timelapse'),
     path('detail/timelapse/setperiod/', views.setperiod, name='setperiod'),
+    path('detail/timelapse/download/', views.download, name='download'),
     path('detail/data/', views.data, name='data'),
 ]
