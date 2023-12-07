@@ -79,7 +79,7 @@ def uploadimages(request, count):
         plant = Plant.objects.get(pk=serial_num)    # Plant 객체 불러오기
         uid = plant.master_id.id
         img_count = plant.image_count + 1
-        filename = 'IMG_' + str(img_count) + '.jpg'  # 파일명
+        filename = 'IMG_' + str(img_count).zfill(4) + '.jpg'  # 파일명
         # filepath = 현재 프로세스의 작업 디렉토리 + 파일경로... 로컬서버 아닐땐 수정하기!!!!
         filepath = os.getcwd() + '/static/' + str(uid) + '/' + serial_num + '/images/'
         # 파일 쓰기
