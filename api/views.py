@@ -84,7 +84,11 @@ def uploadimages(request, count):
         filepath = os.getcwd() + '/static/' + str(uid) + '/' + serial_num + '/images/'
         # 파일 쓰기
         try:
-            f = open(os.path.join(filepath, filename), 'ab')
+            # 중간에 끊겼다가 다시 들어오면 파일 새로 만들기
+            if count == 1:
+                f = open(os.path.join(filepath, filename), 'wb')
+            else:
+                f = open(os.path.join(filepath, filename), 'ab')
         except FileNotFoundError:
             try:
                 os.makedirs(os.path.join(filepath))
