@@ -30,7 +30,7 @@ DEBUG = False
 # ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = ["43.200.105.74"]   # AWS server ip
 # runserver --insecure 하면 디버그 false여도 스태틱 파일 가능
-STATIC_ROOT = BASE_DIR / 'static/'
+# STATIC_ROOT = BASE_DIR / 'static/'
 
 # Application definition
 
@@ -125,11 +125,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-#STATICFILES_DIRS = [
-#    BASE_DIR / 'static',
-#]
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 # STATIC_ROOT 설정된 경우 비워두기
-STATICFILES_DIRS = []
+# STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
