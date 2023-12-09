@@ -164,7 +164,7 @@ def create_timelapse(image_folder, video_name):
     # *은 'D', 'I', 'V', 'X' 이렇게 문자열을 문자로
     video = cv2.VideoWriter(video_name,
                             cv2.VideoWriter_fourcc(*'DIVX'),
-                            24,
+                            10,
                             (width, height))
 
     # 4. 이미지 파일을 하나씩 가져와서 비디오에 추가
