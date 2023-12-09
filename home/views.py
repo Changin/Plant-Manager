@@ -90,10 +90,13 @@ def timelapse(request):
             return HttpResponseRedirect(reverse('home:index'))
         plant = Plant.objects.get(pk=serial_num)
         # datas = Data.objects.filter(plant_id=plant)
+        images = []
+        for i in range(plant.image_count):
+            images.append('IMG_' + str(i+1).zfill(4) + '.jpg')
         return render(
             request,
             'home/timelapse.html',
-            {'plant': plant}
+            {'plant': plant, 'images': images}
         )
     else:
         return HttpResponseRedirect(reverse('home:index'))

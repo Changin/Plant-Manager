@@ -4,6 +4,11 @@
 <title>사진보기</title>
 <div class="container my-3">
     <h2 class="border-bottom py-2">사진보기 : {{ plant.nickname }}</h2>
-    <h5>사진1..사진2..</h5>
 </div>
+{% for img in images %}
+<div class="container my-3">
+    <img src="{{ plant.timelapse_path }}{{ img }}" alt="Image {{ img }}">
+    <h5 class="border-bottom py-2">{{ img }}</h5>
+</div>
+{% endfor %}
 {% endblock %}
