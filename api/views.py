@@ -45,6 +45,16 @@ def measure(request):
                 'error': 'The serial number was not found'
             })
         else:
+            try:
+                last_data = Data.objects.filter(plant_id=plant).latest()
+            except IndexError:
+                pass
+            else:
+                if not last_data:
+                    pass
+                elif int(last_data.watery) < 50 < int(data_watery):
+                    plant.date_watered = timezone.now()
+                    plant.save()
             Data.objects.create(plant_id=plant, light=data_light, temp=data_temp, humi=data_humi,
                                 watery=data_watery, ph=data_ph, date_measured=timezone.now())
             return JsonResponse({
