@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rc)cuv*^bct3__z*9f#!9wncs)0@32jgjb^0+9v8)kmsj2@#8%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = ["43.200.105.74"]   # AWS server ip

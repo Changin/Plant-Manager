@@ -46,7 +46,7 @@ def measure(request):
             })
         else:
             try:
-                last_data = Data.objects.filter(plant_id=plant).latest()
+                last_data = Data.objects.filter(plant_id=plant).last()
             except IndexError:
                 pass
             else:
