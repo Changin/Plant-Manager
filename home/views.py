@@ -153,6 +153,7 @@ def create_timelapse(image_folder, video_name):
     # 1. 모든 이미지 파일의 파일명을 리스트로 변환
     images = [img for img in os.listdir(image_folder) if img.endswith(".jpg")]
     images.sort()
+    images.pop()    # 마지막 이미지 제외
     print(images)
 
     # 2. 첫번째 이미지의 프레임크기 정보를 가져온다.
