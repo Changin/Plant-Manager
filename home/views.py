@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from django.core.files.storage import FileSystemStorage
 from api.models import Plant, Data    # 오류 안뜸
+from django.core.paginator import Paginator     # 페이징을 위한 Paginator
 from PIL import Image
 import PIL
 import cv2
@@ -185,16 +186,24 @@ def create_timelapse(image_folder, video_name):
 
 
 def data(request):
-    if request.user.is_authenticated:
-        serial_num = request.GET.get('serial_num')
-        if serial_num is None:
-            return HttpResponseRedirect(reverse('home:index'))
-        plant = Plant.objects.get(pk=serial_num)
-        datas = Data.objects.filter(plant_id=plant)
-        return render(
-            request,
-            'home/data.html',
-            {'plant': plant, 'datas': reversed(datas)}
-        )
-    else:
+    # 측정값 전체 보기
+
+    # 로그인 되어 있지 않은 경우 홈으로
+    if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home:index'))
+    # ToDo: 로그인 되어 있지만 해당 사용자의 식물이 아닌 경우 홈으로
+
+    page = request.GET.get('page', '1')     # 페이지, 디폴트 1
+    serial_num = request.GET.get('serial_num')
+    if serial_num is None:
+        return HttpResponseRedirect(reverse('home:index'))
+    plant = Plant.objects.get(pk=serial_num)
+    datas = Data.objects.filter(plant_id=plant).order_by('-date_measured')
+    paginator = Paginator(datas, 12)  # 페이지 당 12개씩
+    page_obj = paginator.get_page(page)
+    context = {'plant': plant, 'datas': page_obj}
+    return render(
+        request,
+        'home/data.html',
+        context
+    )

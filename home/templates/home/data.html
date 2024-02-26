@@ -38,5 +38,55 @@
     </div>
 </div>
 {% endif %}
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 처음 & 이전페이지 -->
+        {% if datas.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page=1">처음</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ datas.previous_page_number }}">&lt;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">처음</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&lt;</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in datas.paginator.page_range %}
+        {% if page_number >= datas.number|add:-5 and page_number <= datas.number|add:5 %}
+        {% if page_number == datas.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 & 마지막 -->
+        {% if datas.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ datas.next_page_number }}">&gt;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page=-1">마지막</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&gt;</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">마지막</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
 </div>
 {% endblock %}
