@@ -57,50 +57,66 @@ def newplantsubmit(request):
 
 # 식물 정보 출력, 타입랩스 링크, 최근 업데이트된 측정값 출력
 def detail(request):
-    if request.user.is_authenticated:
-        serial_num = request.GET.get('serial_num')
-        if serial_num is None:
-            return HttpResponseRedirect(reverse('home:index'))
-
-        # TODO: 객체 못찾았을때 예외처리 하기
-        try:
-            plant = Plant.objects.get(pk=serial_num)
-        except Plant.DoesNotExist:
-            return redirect(reverse('home:index'))
-
-        datas = Data.objects.filter(plant_id=plant)
-
-        if len(datas) == 0:
-            current_data = None
-        else:
-            current_data = datas[len(datas) - 1]
-
-        return render(
-            request,
-            'home/detail.html',
-            {'plant': plant, 'current_data': current_data}
-        )
-    else:
+    if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home:index'))
+
+    serial_num = request.GET.get('serial_num')
+    if serial_num is None:
+        return HttpResponseRedirect(reverse('home:index'))
+
+    # 객체 못 찾았을 때 예외 처리
+    try:
+        plant = Plant.objects.get(pk=serial_num)
+    except Plant.DoesNotExist:
+        return redirect(reverse('home:index'))
+
+    # 해당 사용자의 식물이 아닌 경우
+    if request.user.pk is not plant.master_id.pk:
+        return HttpResponseRedirect(reverse('home:index'))
+
+    # 최근 데이터 선별, 렌더링
+    datas = Data.objects.filter(plant_id=plant)
+    if len(datas) == 0:
+        current_data = None
+    else:
+        current_data = datas[len(datas) - 1]
+
+    return render(
+        request,
+        'home/detail.html',
+        {'plant': plant, 'current_data': current_data}
+    )
 
 
 def timelapse(request):
-    if request.user.is_authenticated:
-        serial_num = request.GET.get('serial_num')
-        if serial_num is None:
-            return HttpResponseRedirect(reverse('home:index'))
-        plant = Plant.objects.get(pk=serial_num)
-        # datas = Data.objects.filter(plant_id=plant)
-        images = []
-        for i in range(plant.image_count):
-            images.append('IMG_' + str(i+1).zfill(4) + '.jpg')
-        return render(
-            request,
-            'home/timelapse.html',
-            {'plant': plant, 'images': images}
-        )
-    else:
+    # 사진 보기 페이지
+    if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home:index'))
+
+    serial_num = request.GET.get('serial_num')
+    if serial_num is None:
+        return HttpResponseRedirect(reverse('home:index'))
+
+    # 객체 못 찾았을 때 예외 처리
+    try:
+        plant = Plant.objects.get(pk=serial_num)
+    except Plant.DoesNotExist:
+        return redirect(reverse('home:index'))
+
+    # 해당 사용자의 식물이 아닌 경우
+    if request.user.pk is not plant.master_id.pk:
+        return HttpResponseRedirect(reverse('home:index'))
+
+    # 이미지 카운트에 맞게 이름 리스트 뽑기, 렌더링
+    # ToDo : 이미지 DB 추가하여 더 Nice한 방법으로 리팩터링하기
+    images = []
+    for i in range(plant.image_count):
+        images.append('IMG_' + str(i+1).zfill(4) + '.jpg')
+    return render(
+        request,
+        'home/timelapse.html',
+        {'plant': plant, 'images': images}
+    )
 
 
 def setperiod(request):
@@ -187,17 +203,28 @@ def create_timelapse(image_folder, video_name):
 
 def data(request):
     # 측정값 전체 보기
-
     # 로그인 되어 있지 않은 경우 홈으로
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('home:index'))
-    # ToDo: 로그인 되어 있지만 해당 사용자의 식물이 아닌 경우 홈으로
 
     page = request.GET.get('page', '1')     # 페이지, 디폴트 1
     serial_num = request.GET.get('serial_num')
+
+    # 없는 식물에 대한 요청인 경우
     if serial_num is None:
         return HttpResponseRedirect(reverse('home:index'))
-    plant = Plant.objects.get(pk=serial_num)
+
+    # 객체 못 찾았을 때 예외 처리
+    try:
+        plant = Plant.objects.get(pk=serial_num)
+    except Plant.DoesNotExist:
+        return redirect(reverse('home:index'))
+
+    # 해당 사용자의 식물이 아닌 경우
+    if request.user.pk is not plant.master_id.pk:
+        return HttpResponseRedirect(reverse('home:index'))
+
+    # 데이터 정렬, 렌더링
     datas = Data.objects.filter(plant_id=plant).order_by('-date_measured')
     paginator = Paginator(datas, 12)  # 페이지 당 12개씩
     page_obj = paginator.get_page(page)
