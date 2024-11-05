@@ -11,4 +11,5 @@ urlpatterns = [
     path('setperiod/', views.setperiod, name='setperiod'),
     path('download/', views.download, name='download'),
     path('data/', views.data, name='data'),
+    path('about/', views.about, name='about'),
 ]

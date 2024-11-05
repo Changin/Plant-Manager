@@ -23,6 +23,9 @@ def index(request):
         plants = None
     return render(request, "home/index.html", {"plants": plants})
 
+def about(request):
+    # return HttpResponse("this is about page")
+    return render(request, "home/about.html")
 
 def newplant(request):
     # return HttpResponse("/home/newplant/ : 새 식물 추가 페이지입니다.")
