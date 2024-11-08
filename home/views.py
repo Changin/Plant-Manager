@@ -115,6 +115,7 @@ def timelapse(request):
     images = []
     for i in range(plant.image_count):
         images.append('IMG_' + str(i+1).zfill(4) + '.jpg')
+    images.reverse() # 이미지 최신순 정렬
     return render(
         request,
         'home/timelapse.html',

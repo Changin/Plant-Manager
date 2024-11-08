@@ -5,10 +5,26 @@
 <div class="container my-3">
     <h2 class="border-bottom py-2">사진보기 : {{ plant.nickname }}</h2>
 </div>
-{% for img in images %}
 <div class="container my-3">
-    <img src="{{ plant.timelapse_path }}{{ img }}" alt="Image {{ img }}">
-    <h5 class="border-bottom py-2">{{ img }}</h5>
-</div>
+    <div class="row">
+    {% for img in images %}
+    <div class="col">
+        <div class="card my-3">
+            <div class="card-body">
+                <img width="100%" src="{{ plant.timelapse_path }}{{ img }}" alt="Image {{ img }}">
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2">
+                        ({{img}})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+    {% endif %}
 {% endfor %}
+        </div>
+</div>
 {% endblock %}
