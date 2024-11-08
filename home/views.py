@@ -110,16 +110,20 @@ def timelapse(request):
     if request.user.pk is not plant.master_id.pk:
         return HttpResponseRedirect(reverse('home:index'))
 
+    page = request.GET.get('page', '1')  # 페이지, 디폴트 1
+
     # 이미지 카운트에 맞게 이름 리스트 뽑기, 렌더링
     # ToDo : 이미지 DB 추가하여 더 Nice한 방법으로 리팩터링하기
     images = []
     for i in range(plant.image_count):
         images.append('IMG_' + str(i+1).zfill(4) + '.jpg')
-    images.reverse() # 이미지 최신순 정렬
+    images.reverse()    # 이미지 최신순 정렬
+    paginator = Paginator(images, 18)  # 페이지 당 18개씩
+    page_obj = paginator.get_page(page)
     return render(
         request,
         'home/timelapse.html',
-        {'plant': plant, 'images': images}
+        {'plant': plant, 'images': page_obj}
     )
 
 
