@@ -43,6 +43,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 # ALLOWED_HOSTS = ["43.200.105.74"]   # AWS server ip
+
+# Django Session Timeout Code - 30분 (1800초)
+SESSION_COOKIE_AGE = 1800
+SESSION_SAVE_EVERY_REQUEST = True
+
 # runserver --insecure 하면 디버그 false여도 스태틱 파일 가능
 # STATIC_ROOT = BASE_DIR / 'static/'
 
