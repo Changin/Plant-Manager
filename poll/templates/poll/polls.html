@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Survey</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'poll/style.css' %}">
+    <script src="{% static 'poll/scripts.js' %}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+</head>
+<body>
+    {% include 'shared/_navbar.html' %}
+    <div class="containerUser">
+        <form action="/poll/result/" method="post">
+            {% csrf_token %}
+            {% for category, questions in questions.items %}
+                <div class="category" data-category="{{ category }}">
+                    <h2 id="h2">{{ category }}</h2>
+                    {% for question in questions %}
+                        <div class="question">
+                            <label>{{ question.question.question }}</label><br><br>
+                            {% for ans in question.answer %}
+                            <label><input type="radio" name="{{ question.question.number }}" value="{{forloop.counter}}"> {{ans}}</label>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="navigation-buttons">
+                <button type="button" id="prevButton" class="nav-button" style="display:none;">&#9664; Previous</button>
+                <button type="button" id="nextButton" class="nav-button">Next &#9654;</button>
+                <button type="submit" id="submitButton" class="nav-button" style="display:none;">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

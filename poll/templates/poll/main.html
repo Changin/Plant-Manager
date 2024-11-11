@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Survey Project</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'poll/main.css' %}">
+    <script src="{% static 'poll/main.js' %}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+</head>
+<body>
+    {% include 'shared/_navbar.html' %}
+    <div class="containerUser">
+        <h1 id="h1">Welcome to the Planti-Ai <sup><i>beta</i></sup></h1>
+        <p class="pp">플랜티에서 제공하는 AI기반 개인 맞춤형 식물 추천 서비스입니다.</p>
+        <p class="pp">어떤 식물을 새로 들일지 모르겠다면?</p>
+        <p class="pp">아래의 버튼을 눌러 설문을 시작해 주세요!</p>
+        <button id="startButton">Start Survey</button>
+    </div>
+</body>
+</html>

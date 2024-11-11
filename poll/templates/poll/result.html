@@ -1,0 +1,5 @@
+this is result.html
+<h2>분석결과</h2>
+{% for val, name in responses %}
+    <h4>{{forloop.counter}}위 - {{name}} ({{val}})</h4>
+{% endfor %}
