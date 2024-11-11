@@ -1,5 +1,7 @@
 # poll/views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 import torch
 import os
 
@@ -24,10 +26,16 @@ class Net(torch.nn.Module):
 
 
 def mainpage(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('home:index'))
+
     return render(request, 'poll/main.html')
 
 
 def survey(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('home:index'))
+
     questions = {
         'Survey': [
             {
@@ -64,6 +72,9 @@ def survey(request):
 
 
 def result(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('home:index'))
+    
     if request.method == 'POST':
         responses = {key: request.POST[key] for key in request.POST if key.startswith('q')}
         res = calculateRecommend(responses)
