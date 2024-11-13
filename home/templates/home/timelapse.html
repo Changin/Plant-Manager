@@ -9,14 +9,10 @@
     <div class="row">
     {% for img in images %}
     <div class="col">
-        <div class="card my-3">
+        <div class="card my-3 text-center">
+            <img width="100%" src="{{ plant.timelapse_path }}{{ img }}" class="card-img-top" alt="Image {{ img }}">
             <div class="card-body">
-                <img width="100%" src="{{ plant.timelapse_path }}{{ img }}" alt="Image {{ img }}">
-                <div class="d-flex justify-content-end">
-                    <div class="badge bg-light text-dark p-2">
-                        ({{img}})
-                    </div>
-                </div>
+                <p class="card-text">{{img}}</p>
             </div>
         </div>
     </div>
