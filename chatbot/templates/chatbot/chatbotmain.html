@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<script src="{% static 'chatbot/script.js' %}" defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<h4>Hello? this is chatbot page <sup>powered by OpenAI</sup></h4>
+<div class="container my-3">
+    <div class="card my-3" style="height=300px; overflow=scroll">
+        <div class="card-body">
+            <label for="answer">chatbot : </label>
+            <div class="card-body" id="answer"></div>
+        </div>
+    </div>
+</div>
+<div class="container my-3">
+    <div class="card my-3">
+        <div class="card-body">
+            {% if plants %}
+            <form>
+                <label for="select">식물 선택 : </label>
+                <select name="plants" id="select">
+                    {% for plant in plants %}
+                        <option value="{{plant.serial_num}}">{{plant.nickname}}</option>
+                    {% endfor %}
+                </select> <br>
+                질문할 내용 : <textarea id="prompt" placeholder="지금 물을 줘야해?"></textarea>
+                <button type="button" onclick="query()">전송</button>
+            </form>
+            {% else %}
+            <p>식물이 없습니다!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

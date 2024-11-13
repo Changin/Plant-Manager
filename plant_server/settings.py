@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'home',
     'api',
     'poll',
+    'chatbot',
     'rest_framework',
 ]
 
