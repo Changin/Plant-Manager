@@ -1,39 +1,50 @@
-function appendAns(answer){
-    let card = document.createElement('div');     // div 태그 생성
-    card.setAttribute('class', 'card my-3');        // class 지정
+function appendAns(user, answer){
+    let card = document.createElement('div');     // card div 태그 생성
+    if (user == 'me'){
+        card.setAttribute('class', 'card my-3 w-65');
+        card.setAttribute('style', 'margin-left: 35%; background-color: honeydew; border-radius: 25px 25px 0px 25px');
+    }
+    else{
+        card.setAttribute('class', 'card my-3 w-75');        // class 지정
+        card.setAttribute('style', 'border-radius: 25px 25px 25px 0px')
+    }
 
-    let card_body = document.createElement('div'); // div 태그 생성
-    card_body.setAttribute('class', 'card-body');      // class 지정
-    card_body.innerHTML = answer;                   // 응답 넣기
+    let card_body = document.createElement('div');  // card body div 태그 생성
+    if (user == 'me'){
+        card_body.setAttribute('class', 'card-body text-end');
+    }
+    else{
+        card_body.setAttribute('class', 'card-body');
+    }
 
-    // card에 card_body 태그 넣기
+    // 이름표 넣기
+    let nametag = document.createElement('h6');
+    nametag.setAttribute('class', 'card-subtitle mb-2 text-muted');
+    nametag.innerHTML = user
+
+    // 내용 넣기
+    let context = document.createElement('p');  // p 태그 생성
+    context.setAttribute('class', 'card-text');
+    context.innerHTML = answer;            
+
+    // 태그 계층 완성, 추가
+    card_body.appendChild(nametag);
+    card_body.appendChild(context);
     card.appendChild(card_body);
-	
     document.getElementById("answer").appendChild(card);
-    return card_body;
-}
 
-function appendPrompt(prompt){
-    let card = appendAns(prompt);
-    card.setAttribute('class', 'card-body text-end');
-
-    let nametag = document.createElement('div');
-    nametag.setAttribute('class', 'd-flex justify-content-end');
-
-    let name = document.createElement('div');
-    name.setAttribute('class', 'badge bg-light text-dark p-2');
-    name.innerHTML = 'me'
-
-    nametag.appendChild(name);
-    card.appendChild(nametag);
+    // 내용 반환
+    return context;
 }
 
 function query(){
     let plant_serial = document.getElementById("select").value;
     let prompt = document.getElementById("prompt").value;
-    appendPrompt(prompt);
+    document.getElementById("prompt").value = "";
+    appendAns('me', prompt);
+    
 
-    let reply = appendAns('입력중...')
+    let reply = appendAns('bot', '입력중...')
 
     const api = '/chatbot/get_response/?serial='+plant_serial+'&prompt='+prompt+'/'
 
