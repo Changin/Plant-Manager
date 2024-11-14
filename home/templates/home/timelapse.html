@@ -3,12 +3,74 @@
 {% block content %}
 <title>사진보기</title>
 <div class="container my-3">
-    <h2 class="border-bottom py-2">사진보기 : {{ plant.nickname }}</h2>
+    <h2 class="border-bottom py-2">{{ plant.nickname }} - {{plant.image_count}}개 이미지</h2>
 </div>
-{% for img in images %}
-<div class="container my-3">
-    <img src="{{ plant.timelapse_path }}{{ img }}" alt="Image {{ img }}">
-    <h5 class="border-bottom py-2">{{ img }}</h5>
-</div>
+<div class="container my-3 px-4">
+    <div class="row">
+    {% for img in images %}
+    <div class="col">
+        <div class="card my-3 text-center">
+            <img width="100%" src="{{ plant.timelapse_path }}{{ img }}" class="card-img-top" alt="Image {{ img }}">
+            <div class="card-body">
+                <p class="card-text">{{img}}</p>
+            </div>
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+    {% endif %}
 {% endfor %}
+        </div>
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 처음 & 이전페이지 -->
+        {% if images.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page=1">처음</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ images.previous_page_number }}">&lt;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">처음</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&lt;</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in images.paginator.page_range %}
+        {% if page_number >= images.number|add:-5 and page_number <= images.number|add:5 %}
+            {% if page_number == images.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 & 마지막 -->
+        {% if images.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page={{ images.next_page_number }}">&gt;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?serial_num={{ plant.serial_num }}&page=-1">마지막</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&gt;</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">마지막</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+</div>
 {% endblock %}

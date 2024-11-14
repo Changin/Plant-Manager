@@ -22,7 +22,7 @@ class Plant(models.Model):
 class Data(models.Model):
     plant_id = models.ForeignKey(Plant, on_delete=models.CASCADE) # 식물 id
     date_measured = models.DateTimeField("measured date", default=timezone.now()) # 측정일시
-    light = models.CharField(max_length=10) # 조도값
+    light = models.CharField(max_length=10)  # 조도값
     temp = models.CharField(max_length=10)  # 온도값
     humi = models.CharField(max_length=10)  # 습도값
     watery = models.CharField(max_length=10)    # 토양수분값

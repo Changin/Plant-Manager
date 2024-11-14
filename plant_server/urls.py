@@ -23,5 +23,7 @@ urlpatterns = [
     path("home/", include("home.urls")),  # home 앱의 urls 연결
     path("", include("home.urls")),
     path("api/", include("api.urls")),  # rest api
+    path("poll/", include("poll.urls")),  # polls
+    path("chatbot/", include("chatbot.urls")),  # chatbot
     path('admin/', admin.site.urls),
 ]

@@ -1,5 +1,5 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko"> <!-- en로 되어있는데 ko로 바꿔줬지만 굳이 바꾸지 않아도 된다. -->
 
 <head>
@@ -8,18 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-    <title>Plant manager</title>
+    <title>Planti</title>
 </head>
 
 <body>
-    {% include 'shared/_navbar.html' %}
+        <div class="d-flex flex-column min-vh-100">
+        <!-- header -->
+        {% include 'shared/_navbar.html' %}
 
-    <!-- 기본 템플릿 안에 삽입될 내용 START -->
-    {% block content %}
-    {% endblock %}
-    <!-- 기본 템플릿 안에 삽입될 내용 END -->
-    <!-- Bootstrap JS -->
-    <script src="{% static 'bootstrap.min.js' %}"></script>
+        <!-- 기본 템플릿 안에 삽입될 내용 START -->
+        {% block content %}
+        {% endblock %}
+        <!-- 기본 템플릿 안에 삽입될 내용 END -->
+
+        <!-- footer -->
+        {% include 'shared/_footer.html' %}
+        <!-- Bootstrap JS -->
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+    </div>
 </body>
 
 </html>

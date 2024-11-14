@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planti</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'poll/main.css' %}">
+    <script src="{% static 'poll/main.js' %}" defer></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+</head>
+<body>
+    {% include 'shared/_navbar.html' %}
+    <div class="containerUser">
+        <h1 id="h1">분석결과 추천 순위</h1>
+        {% for val, name in responses %}
+            <p class="pp">{{forloop.counter}}위 - {{name}} ({{val}})</p>
+        {% endfor %}
+        <button id="startButton">다시 검사하기</button>
+    </div>
+</body>
+</html>

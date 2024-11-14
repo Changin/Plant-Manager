@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<script src="{% static 'chatbot/script.js' %}" defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<div class="container mt-4">
+    <h4>AI 식물박사 <sub style="font-size: 12px; color: lightgray;">powered by OpenAI</sub></h4>
+</div>
+<div class="container" style="height: 60vh">
+    <div class="card my-3" style="height: 100%">
+        <div class="card-body" style="height: 100%">
+            <h5 class="card-title border-bottom">Chat</h5>
+            <div class="card-body" id="answer" style="height: 90%; overflow: scroll">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-3">
+    <div class="card my-3">
+        <div class="card-body">
+            {% if plants %}
+            <div class="row justify-content-start">
+                <div class="col-3 justify-content-end">
+                    <select name="plants" id="select">
+                    {% for plant in plants %}
+                        <option value="{{plant.serial_num}}">{{plant.nickname}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col my-1">
+                    <input type="text" class="form-control" id="prompt" style="height: 100%; width: 100%;" placeholder="식물에 대해 궁금한 것을 물어보세요!"></input>
+                </div>
+                <div class="col-2 my-1 ps-0">
+                    <button type="button" class="btn" style="background-color: honeydew; width: 100%; border-color: lightgrey;" onclick="query()">전송</button>
+                </div>
+            </div>
+            {% else %}
+                <p>식물이 없습니다!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

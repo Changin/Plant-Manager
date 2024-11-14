@@ -1,0 +1,48 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+h1 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin: 0;
+    font-size: 2.5rem;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh /* 컨테이너 높이를 100%로 설정 */
+}
+
+.mbti {
+    height: 100vh; /* 화면 세로 높이에 맞게 설정 */
+    width: auto; /* 가로 비율은 자동 조절 */
+}
+
+.button-container {
+    display: flex;
+    text-decoration: none;
+    gap: 30px;
+    padding: 10px;
+}
+
+.share-button img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}

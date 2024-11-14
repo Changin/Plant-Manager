@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rc)cuv*^bct3__z*9f#!9wncs)0@32jgjb^0+9v8)kmsj2@#8%'
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+with open(secret_file, 'r') as f:   # open as로 secret.json을 열기
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets = secrets):   # 예외 처리를 통해 오류 발생을 검출합니다.
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -29,13 +43,17 @@ DEBUG = False
 
 # ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = ["43.200.105.74"]   # AWS server ip
+
+# Django Session Timeout Code - 30분 (1800초)
+SESSION_COOKIE_AGE = 1800
+SESSION_SAVE_EVERY_REQUEST = True
+
 # runserver --insecure 하면 디버그 false여도 스태틱 파일 가능
 # STATIC_ROOT = BASE_DIR / 'static/'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'web.apps.WebConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +63,8 @@ INSTALLED_APPS = [
     'users',
     'home',
     'api',
+    'poll',
+    'chatbot',
     'rest_framework',
 ]
 
