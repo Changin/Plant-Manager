@@ -3,10 +3,10 @@
 {% load static %}
 <script src="{% static 'chatbot/script.js' %}" defer></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<div class="container my-3">
-    <h4>AI 식물박사 <sub style="font-size: 12px">powered by OpenAI</sub></h4>
+<div class="container mt-4">
+    <h4>AI 식물박사 <sub style="font-size: 12px; color: lightgray;">powered by OpenAI</sub></h4>
 </div>
-<div class="container my-3" style="height: 60vh">
+<div class="container" style="height: 60vh">
     <div class="card my-3" style="height: 100%">
         <div class="card-body" style="height: 100%">
             <h5 class="card-title border-bottom">Chat</h5>
@@ -15,7 +15,7 @@
         </div>
     </div>
 </div>
-<div class="container my-3 position-fixed bottom-0 start-50 translate-middle-x">
+<div class="container my-3">
     <div class="card my-3">
         <div class="card-body">
             {% if plants %}

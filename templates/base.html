@@ -12,14 +12,20 @@
 </head>
 
 <body>
-    {% include 'shared/_navbar.html' %}
+        <div class="d-flex flex-column min-vh-100">
+        <!-- header -->
+        {% include 'shared/_navbar.html' %}
 
-    <!-- 기본 템플릿 안에 삽입될 내용 START -->
-    {% block content %}
-    {% endblock %}
-    <!-- 기본 템플릿 안에 삽입될 내용 END -->
-    <!-- Bootstrap JS -->
-    <script src="{% static 'bootstrap.min.js' %}"></script>
+        <!-- 기본 템플릿 안에 삽입될 내용 START -->
+        {% block content %}
+        {% endblock %}
+        <!-- 기본 템플릿 안에 삽입될 내용 END -->
+
+        <!-- footer -->
+        {% include 'shared/_footer.html' %}
+        <!-- Bootstrap JS -->
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+    </div>
 </body>
 
 </html>

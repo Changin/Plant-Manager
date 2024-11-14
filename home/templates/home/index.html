@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
 <div class="container my-3">
-    <h2 class="border-bottom py-2">Plant manager v0.1</h2>
     {% if user.is_authenticated %}
     <h4 class="border-bottom py-2">내 식물 관리</h4>
 </div>
@@ -46,11 +47,34 @@
     </table>
 </div>
 {% else %}
-<div class="container my-3">
-    <h2>로그인이 필요한 서비스입니다.</h2>
-    <a href="{% url 'users:login' %}" class="btn btn-primary">로그인</a>
-    <span>||</span>
-    <a href="{% url 'users:signup' %}" class="btn btn-primary">회원가입</a>
+<div class="container">
+    <div class="px-4 py-5 my-3 text-center">
+        <p class="lead mb-3" style="font-size: 16px">새로운 AI 식물 생장 모니터링 IoT 플랫폼</p>
+        <h1 class="mb-3 display-5 fw-bold" style="font-size: 90px; color: #4CAF50">Planti</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                초보 식집사부터 전문 가드너까지,<br>모든 식집사들의 고민을 담아 탄생했습니다.
+            </p>
+            <p class="fw-normal mb-4 p-4 text-center" style="border-radius: 15px; border: 1px solid gray; font-size: 18px;">
+                시들어 가는 내 식물, 어떻게 해야할 지 모르겠어요.<br>
+                어떤 식물을 새로 들일지 모르겠어요.<br>
+                소중한 내 식물의 성장을 기록하고 싶어요!<br>
+            </p>
+            <p class="lead mb-4">지금 바로 시작하세요!</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-3">
+                <button type="button" class="btn btn-lg px-4 gap-3" style="background-color: #4CAF50;">
+                    <a href="{% url 'users:signup' %}" style="text-decoration: none; color: white">회원가입</a>
+                </button>
+                <button type="button" class="btn btn-light btn-lg px-4 gap-3" style="border: 1px solid lightgray">
+                    <a href="{% url 'home:about' %}" style="text-decoration: none; color: gray;">더 알아보기</a>
+                </button>
+            </div>
+            <p class="lead mb-4" style="font-size: 14px">이미 회원이신가요?
+                <a href="{% url 'users:login' %}" style="color: gray;">로그인</a>
+            </p>
+        </div>
+    </div>
 </div>
 {% endif %}
+
 {% endblock %}
