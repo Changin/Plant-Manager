@@ -38,11 +38,11 @@ def get_secret(setting, secrets = secrets):   # 예외 처리를 통해 오류 �
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-# ALLOWED_HOSTS = ["43.200.105.74"]   # AWS server ip
+# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["43.200.105.74"]   # AWS server ip
 
 # Django Session Timeout Code - 30분 (1800초)
 SESSION_COOKIE_AGE = 1800
