@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <div class="container my-3">
     <h3 class="border-bottom py-2">About us</h3>
     <div class="container">
@@ -9,7 +10,11 @@
             </div>
             <div class="col mx-5">
                 <h5>새로운 AI 식물 생장 모니터링 IoT 플랫폼, 플랜티</h5>
-                <p>소개 추가 예정</p>
+                <p>코로나 시대가 지나면서 반려식물을 키우는 홈 가드닝 시장이 크게 떠올랐다. 코로나 이전 대비
+홈가드닝 매출 상승률이 화분, 원예용품, 묘종묘목 분야에서 각각 20%, 48% 92% 증가했고 (*농촌진흥청 농업기술포털) , 국내 식물재배기 시장 전망은 코로나 이전 대비 4000억원 이상 상승할 것으로 전망했다. (*발명진흥회 지식재산평가센터)
+실제로도 집에서 반려식물을 한번쯤 키워봤거나, 키우고 있는 가정이 많을 것이고, 새롭게 식물 키우기에 도전하는 초보 식집사들도 늘고 있다.
+하지만 바쁜 현대인들에게 식물 키우기란 쉽지만은 않다. 바빠서 식물을 돌볼 시간이 부족한 사람부터, 홈 가드닝을 이제 막 시작한 초보 식집사와 원예를 업으로 삼으며 많은 식물들을 키우고 있는 사람들에게까지 식물에게 최적의 케어를 제공하는 일은 쉬운 일이 아니다.
+우리는 단순히 식물 키우기를 좋아하는 팀원의 아이디어에서 출발하여, 비슷한 고민을 하고 있는 다양한 사람들에게 도움이 되고자 식물 생장 모니터링 IoT 플랫폼 "플랜티"를 기획하게 되었다.</p>
             </div>
         </div>
     </div>
@@ -18,11 +23,54 @@
     <h3 class="border-bottom py-2">Production info</h3>
     <div class="container">
         <div class="row py-2">
-            <div class="border-end col-sm-3 mx-5">
-                <p>(사진 1)</p>
+            <div class="border-end col-sm-6 mx-5">
+                <img width="100%" src="{% static 'about/img2.png' %}" class="card-img-top" alt="Image2">
             </div>
             <div class="col mx-5">
-                <p>(기술&기능 소개)</p>
+                <h5>플랜티 전용 단말기</h5>
+                <p>100% 3D 프린팅 설계로 제작된 단말기는 깔끔한 디자인과 편의성을 갖추고 있습니다.
+                약 90도 각도로 회전할 수 있는 틸트 카메라,
+                조도, 온도, 습도, 토양습도 센서,
+                usb-C 타입 전원포트까지.
+                기존의 누구도 시도한 적 없던 식물 IoT 제품이 새롭게 탄생했습니다.</p>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="border-end col-sm-5 mx-5">
+                <img width="100%" src="{% static 'about/img3.png' %}" class="card-img-top" alt="Image3">
+            </div>
+            <div class="col mx-5">
+                <h5>식물 모니터링</h5>
+                <p>소중한 내 식물의 성장을 기록하고 싶다면?<br>
+                    단말기를 계정에 등록하고, 연결하기만 하면 끝!
+                    자동으로 측정된 환경정보와 내 식물의 최근 사진을 손쉽게 확인할 수 있습니다.
+                    또, 물을 언제 줬는지 기억할 필요도 없죠.
+                </p>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="border-end col-sm-4 mx-5">
+                <img width="100%" src="{% static 'about/img4.png' %}" class="card-img-top" alt="Image4">
+            </div>
+            <div class="col mx-5">
+                <h5>AI 식물닥터</h5>
+                <p>시들어 가는 내 식물, 어떻게 할 지 모르겠다면?<br>
+                    LLM 기반 AI 챗봇, AI식물닥터에게 물어보세요.
+                    등록된 식물을 선택하고 고민을 이야기 하면, AI가 자동으로 식물 환경을 분석해 주어
+                    내 식물의 상태에 딱 맞는 맞춤형 솔루션을 제공해 드립니다!
+                </p>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="border-end col-sm-3 mx-5">
+                <img width="100%" src="{% static 'about/img5.png' %}" class="card-img-top" alt="Image5">
+            </div>
+            <div class="col mx-5">
+                <h5>나에게 맞는 식물 찾기</h5>
+                <p>어떤 식물을 새로 들일 지 모르겠다면?<br>
+                    내 성격과 성향에 딱 맞는 식물을 AI가 추천해 드립니다!
+                    집의 환경, 관리 빈도를 분석해 내 환경과 성격에 잘 자랄 수 있는 식물 4가지를 추천해 드려요.
+                </p>
             </div>
         </div>
     </div>
@@ -44,12 +92,9 @@
                     <li>Python Django Framework</li>
                     <li>AI/ML</li>
                     <li>e-mail : qorckddls010@gmail.com</li>
-                    <li>Github</li>
-                    <li>Blog</li>
+                    <li><a href="https://github.com/Changin/">Github</a></li>
+                    <li><a href="https://blog.naver.com/qorckddls010/">Blog</a></li>
                 </ul>
-            </div>
-            <div class="col mx-5">
-                <em>(사진)</em>
             </div>
         </div>
         <div class="row py-2">
@@ -66,9 +111,6 @@
                     <li>e-mail : tjs1220@naver.com</li>
                 </ul>
             </div>
-            <div class="col mx-5">
-                <em>(사진)</em>
-            </div>
         </div>
     </div>
 </div>
@@ -80,8 +122,8 @@
                 <em>source code can be found at :</em>
             </div>
             <div class="col mx-5">
-                <em>end-device github link</em><br>
-                <em>server github link</em>
+                <a href="https://github.com/Changin/Plant-Manager"><em>github(server)</em></a><br>
+                <a href="https://github.com/Changin/Plant-Manager-Client"><em>github(end-device)</em></a>
             </div>
         </div>
     </div>
